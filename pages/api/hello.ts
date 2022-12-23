@@ -36,7 +36,7 @@ const handler = async (req: NextApiRequest,
 
   res.setHeader('Content-Type', 'application/octet-stream');
   res.setHeader('Content-Disposition', 'attachment; filename='+name+'.mp4');
-  await pipeline(response.body, res);
+  await this.app.pipeline(response.body, res);
 };
 
 export default handler;
