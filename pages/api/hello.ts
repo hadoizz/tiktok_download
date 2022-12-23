@@ -12,7 +12,7 @@ export default function handler(
   res.status(200).json({ name: 'John Doe' })
 }
 */
-const request = require("request");
+
 export const config = {
   api: {
     responseLimit: false,
@@ -25,7 +25,8 @@ import fetch from 'node-fetch';
 
 const pipeline = promisify(stream.pipeline);
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest,
+  res: NextApiResponse<Data>) => {
   const url = req.query.filename;
   const name = req.query.name;
   const response = await fetch(url); // replace this with your API call & options
