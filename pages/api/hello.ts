@@ -28,7 +28,7 @@ import fetch from 'node-fetch';
 const pipeline = promisify(stream.pipeline);
 
 const handler = async (req: NextApiRequest,
-  res) => {
+  res: NextApiResponse) => {
   const url = req.query.filename;
   const name = req.query.name;
   const response = await fetch(<any>url); // replace this with your API call & options
