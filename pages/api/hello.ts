@@ -25,7 +25,7 @@ import stream from 'stream';
 import { promisify } from 'util';
 import fetch from 'node-fetch';
 
-const pipeline = promisify(stream.pipeline);
+const pip = promisify(stream.pipeline);
 
 const handler = async (req: NextApiRequest,
   res: NextApiResponse) => {
@@ -36,7 +36,7 @@ const handler = async (req: NextApiRequest,
 
   res.setHeader('Content-Type', 'application/octet-stream');
   res.setHeader('Content-Disposition', 'attachment; filename='+name+'.mp4');
-  await this.app.pipeline(response.body, res);
+  await pip(response.body, res);
 };
 
 export default handler;
