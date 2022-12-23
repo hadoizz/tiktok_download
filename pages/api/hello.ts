@@ -28,10 +28,10 @@ import fetch from 'node-fetch';
 const pipeline = promisify(stream.pipeline);
 
 const handler = async (req: NextApiRequest,
-  res: NextApiResponse<Data>) => {
+  res) => {
   const url = req.query.filename;
   const name = req.query.name;
-  const response = await fetch(url!); // replace this with your API call & options
+  const response = await fetch(<any>url); // replace this with your API call & options
   if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
 
   res.setHeader('Content-Type', 'application/octet-stream');
