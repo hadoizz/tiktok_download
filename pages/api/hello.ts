@@ -18,7 +18,7 @@ export default (req: NextApiRequest,
   // send request to the original file
   request
     .get(filePath) // download original image
-    .on("error", function(err) {
+    .on("error", function(<any>err) {
       res.writeHead(404, { "Content-Type": "application/octet-stream" });
       res.write("<h1>404 not found</h1>");
       res.end();
