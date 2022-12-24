@@ -31,8 +31,7 @@ const handler = async (req: NextApiRequest,
   res: NextApiResponse<string>) => {
   const url = req.query.filename;
   const name = req.query.name;
-  const response = await fetch(<string>url); // replace this with your API call & options
-  if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
+  const response = await fetch(<string>url); 
 
   res.setHeader('Content-Type', 'application/octet-stream');
   res.setHeader('Content-Disposition', 'attachment; filename='+name+'.mp4');
