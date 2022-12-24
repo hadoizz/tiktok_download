@@ -9,10 +9,6 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-	const filePath = req.query.filename;     
 
-  // filename only
-  const fileName = req.query.name+'.mp4';
-  
-  res.status(200).json({ name: filePath })
+  res.status(200).json({ name: 'John Doe' })
 }
