@@ -1,41 +1,28 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-/*
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
-}
-*/
+const request = require("request");
 
-type Data = {
-  name: string
-}
-
-export const config = {
-  api: {
-    responseLimit: false,
-  },
-}
-
-import stream from 'stream';
-import { promisify } from 'util';
-import fetch from 'node-fetch';
-
-const pip = promisify(stream.pipeline);
-
-const handler = async (req: NextApiRequest,
+export default (req: NextApiRequest,
   res: NextApiResponse<string>) => {
-  const url = req.query.filename;
-  const name = req.query.name;
-  const response = await fetch(<string>url); 
+  // path to file
+  const filePath = req.query.filename;     
 
-  res.setHeader('Content-Type', 'application/octet-stream');
-  res.setHeader('Content-Disposition', 'attachment; filename='+name+'.mp4');
-  await pip(response.body, res);
+  // filename only
+  const fileName = req.query.name+'.mp4';
+
+  // set header
+  res.setHeader("content-disposition", "attachment; filename=" + fileName);
+
+  // send request to the original file
+  request
+    .get(filePath) // download original image
+    .on("error", function(err) {
+      res.writeHead(404, { "Content-Type": "application/octet-stream" });
+      res.write("<h1>404 not found</h1>");
+      res.end();
+      return;
+    })
+    .pipe(res); // pipe converted image to HTTP response
 };
-
-export default handler;
