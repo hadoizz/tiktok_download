@@ -13,6 +13,7 @@ export default (req: NextApiRequest,
   const fileName = req.query.name+'.mp4';
 
   // set header
+  res.setHeader('Content-Type', 'application/octet-stream');
   res.setHeader("content-disposition", "attachment; filename=" + fileName);
 
   // send request to the original file
